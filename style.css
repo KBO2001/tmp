@@ -1,6 +1,9 @@
 h1 { 
     text-align: center;
 }
+h2 { 
+    text-align: center;
+}
 #main {
     border: 2px solid blue;
     width: 100%;
@@ -19,11 +22,11 @@ h1 {
     text-align: center;
 }
 #EcardQ {
-    font-size: large;
+    font-size: medium;
     text-align: center;
 }
 #EcardA {
-    font-size: large;
+    font-size: medium;
     text-align: center;
 }
 #sub{
@@ -34,6 +37,7 @@ h1 {
 .btn{
     border: 0.5px solid black;
     width: 100%;
+    font-size: large;
 }
 #btn1{
     background-color: pink;
@@ -52,4 +56,10 @@ footer {
 .ifnec{
     text-decoration: underline;
     text-align: center;
+}
+hr{
+    margin: 0px -2px;
+    height: 2px;
+    background-color: blue;
+    border: none;
 }
