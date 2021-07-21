@@ -6,6 +6,11 @@ h2 {
     text-align: center;
     margin: -2px;
 }
+h6 { 
+    text-align: right;
+    margin: -2px;
+    text-decoration: underline;
+}
 #main {
     border: 2px solid blue;
     width: 100%;

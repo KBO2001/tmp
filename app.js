@@ -1165,9 +1165,13 @@ let btn5 = document.getElementById('btn5');
 let rLv = document.getElementsByName('rnLv');
 let rPart = document.getElementsByName('rnPart');
 let rState = document.getElementsByName('rnState');
+let rTimes = document.getElementsByName('rnTimes');
+let rDirection = document.getElementsByName('rnDirection');
 let Lv;
 let Part;
 let State;
+let Times;
+let Direction;
 let now;
 let play;
 
@@ -1185,6 +1189,8 @@ function load() {
     Lv = null;
     Part = null;
     State = null;
+    Times = null;
+    Direction = null;
     btn3.innerHTML = null;
     btn4.innerHTML = null;
     btn5.innerHTML = `開始`;
@@ -1198,7 +1204,6 @@ function load() {
             <input type="radio" name="rnLv">Lv.3</input>
             <input type="radio" name="rnLv">Lv.4</input>
             <input type="radio" name="rnLv">Lv.5</input>
-
         </form>
         <hr>
         <form id="rPart">
@@ -1224,13 +1229,37 @@ function load() {
             <input type="radio" name="rnState">正解</input>
             <input type="radio" name="rnState">不正解</input>
             <input type="radio" name="rnState">未解答</input>
-            </form>`;
+        </form>
+        <hr>
+        <form id="rTimes">
+            <input type="radio" name="rnTimes" checked>All</input>
+            <input type="radio" name="rnTimes">10</input>
+            <input type="radio" name="rnTimes">30</input>
+            <input type="radio" name="rnTimes">50</input>
+            <input type="radio" name="rnTimes">100</input>
+        </form>
+        <hr>
+        <form id="rDirection">
+            <input type="radio" name="rnDirection" checked>独→日</input>
+            <input type="radio" name="rnDirection">日→独</input>
+        </form>
+        `;
     console.log(`onload`);
     console.log(`wordList length: ${wordList.length}`);
 };
 
+toTop.onclick = function () {
+    console.log(`toTop onclick`);
+    return reload();
+}
+
+function reload() {
+    console.log(`reload`);
+    return load();
+}
+
 btn5.onclick = function () {
-    console.log(`btn5 onClick`);
+    console.log(`btn5 onclick`);
     mode();
 };
 
@@ -1294,10 +1323,32 @@ function mode() {
         console.log(`State is not choosed.`)
         return reload();
     }
+    if (rTimes[0].checked == true) {
+        Times = null;
+    } else if (rTimes[1].checked == true) {
+        Times = 10;
+    } else if (rTimes[2].checked == true) {
+        Times = 30;
+    } else if (rTimes[3].checked == true) {
+        Times = 50;
+    } else if (rTimes[4].checked == true) {
+        Times = 100;
+    } else {
+        console.log(`Times is not choosed.`)
+        return reload();
+    }
+    if (rDirection[0].checked == true) {
+        Direction = 0;
+    } else if (rDirection[1].checked == true) {
+        Direction = 1;
+    } else {
+        console.log(`Direction is not choosed.`)
+        return reload();
+    }
     EcardQ.innerHTML = null;
     EcardA.innerHTML = null;
     btn5.innerHTML = null;
-    console.log(`Started: Lv = ${Lv}, Part = ${Part}, State = ${State}`)
+    console.log(`Started: Lv = ${Lv}, Part = ${Part}, State = ${State}, Times = ${Times}, Direction = ${Direction}`);
     chooseReset();
 }
 
@@ -1466,7 +1517,10 @@ function chooseState() {
 }
 
 function sort() {
-    for (let i = 0; i < chooseList3.length + sortList.length; i++) {
+    if (Times == null) {
+        Times = chooseList3.length + sortList.length;
+    }
+    for (let i = 0; i < Times; i++) {
         let rdm = null;
         rdm = Math.floor(Math.random() * chooseList3.length);
         sortList.push(chooseList3[rdm]);
@@ -1477,11 +1531,6 @@ function sort() {
     appear();
 }
 
-function reload() {
-    console.log(`reload`);
-    return load();
-}
-
 function appear() {
     if (sortList.length == 0) {
         return end();
@@ -1489,7 +1538,13 @@ function appear() {
         console.log(`now is ${now}.`)
         play = 1;
         Qcard1.innerHTML = `No: ${sortList[now][0]}  Last: ${sortList.length - now}`;
-        Qcard2.innerHTML = sortList[now][1];
+        if (Direction == 0) {
+            Qcard2.innerHTML = sortList[now][1];
+        } else if (Direction == 1) {
+            Qcard2.innerHTML = sortList[now][2];
+        } else {
+            return;
+        }
         Acard1.innerHTML = `<br>`;
         Acard2.innerHTML = null;
         Acard3.innerHTML = null;
@@ -1504,7 +1559,11 @@ btn3.onclick = function () {
 };
 
 function open() {
-    Acard1.innerHTML = sortList[now][2];
+    if (Direction == 0) {
+        Acard1.innerHTML = sortList[now][2];
+    } else if (Direction == 1) {
+        Acard1.innerHTML = sortList[now][1]; 
+    }
     //0All, 1名詞, 2動詞, 3副詞, 4形容詞, 5前置詞, 6接続詞, 7冠詞, 8代名詞 ,9数詞, 10間投詞
     let openState;
     if (sortList[now][3] == 1) {
