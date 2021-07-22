@@ -1186,17 +1186,12 @@ function load() {
     Acard2.innerHTML = null;
     Acard3.innerHTML = null;
     Acard4.innerHTML = null;
-    Lv = null;
-    Part = null;
-    State = null;
-    Times = null;
-    Direction = null;
     btn3.innerHTML = null;
     btn4.innerHTML = null;
     btn5.innerHTML = `開始`;
     EcardQ.innerHTML = `
         <form id="rLv">
-            <input type="radio" name="rnLv" checked>All</input>
+            <input type="radio" name="rnLv">All</input>
             <input type="radio" name="rnLv">Lv.0</input>
             <input type="radio" name="rnLv">Lv.1</input>
             <input type="radio" name="rnLv">Lv.2</input>
@@ -1207,7 +1202,7 @@ function load() {
         </form>
         <hr>
         <form id="rPart">
-            <input type="radio" name="rnPart" checked>All</input>
+            <input type="radio" name="rnPart">All</input>
             <input type="radio" name="rnPart">名詞</input>
             <input type="radio" name="rnPart">動詞</input>
             <input type="radio" name="rnPart">副詞</input>
@@ -1225,14 +1220,14 @@ function load() {
         </form>`;
     EcardA.innerHTML = `
         <form id="rState">
-            <input type="radio" name="rnState" checked>All</input>
+            <input type="radio" name="rnState">All</input>
             <input type="radio" name="rnState">正解</input>
             <input type="radio" name="rnState">不正解</input>
             <input type="radio" name="rnState">未解答</input>
         </form>
         <hr>
         <form id="rTimes">
-            <input type="radio" name="rnTimes" checked>All</input>
+            <input type="radio" name="rnTimes">All</input>
             <input type="radio" name="rnTimes">10</input>
             <input type="radio" name="rnTimes">30</input>
             <input type="radio" name="rnTimes">50</input>
@@ -1240,10 +1235,49 @@ function load() {
         </form>
         <hr>
         <form id="rDirection">
-            <input type="radio" name="rnDirection" checked>独→日</input>
+            <input type="radio" name="rnDirection">独→日</input>
             <input type="radio" name="rnDirection">日→独</input>
         </form>
         `;
+        if (Lv == 9) {
+            rLv[0].checked = true;
+        } else if (Lv <= 5) {
+            rLv[Lv + 1].checked = true;
+        } else {
+            return;
+        }
+        if (Part <= 10) {
+            rPart[Part].checked = true;
+        } else {
+            return;
+        }
+        if (State == 9) {
+            rState[0].checked = true;
+        } else if (State == 0) {
+            rState[3].checked = true;
+        } else if (State <= 2) {
+            rState[State].checked = true;
+        } else {
+            return;
+        }
+        if (Times === null) {
+            rTimes[0].checked = true;
+        } else if (Times == 10) {
+            rTimes[1].checked = true;
+        } else if (Times == 30) {
+            rTimes[2].checked = true;
+        } else if (Times == 50) {
+            rTimes[3].checked = true;
+        } else if (Times == 100) {
+            rTimes[4].checked = true;
+        } else {
+            return;
+        }
+        if (Direction <= 1) {
+            rDirection[Direction].checked = true;
+        } else {
+            return;
+        }
     console.log(`onload`);
     console.log(`wordList length: ${wordList.length}`);
 };
@@ -1517,10 +1551,16 @@ function chooseState() {
 }
 
 function sort() {
-    if (Times == null) {
-        Times = chooseList3.length + sortList.length;
+    let realTimes
+    if (Times === null) {
+        realTimes = chooseList3.length;
+    } else {
+        realTimes = Times;
     }
-    for (let i = 0; i < Times; i++) {
+    if (realTimes > chooseList3.length){
+        realTimes = chooseList3.length;
+    }
+    for (let i = 0; i < realTimes; i++) {
         let rdm = null;
         rdm = Math.floor(Math.random() * chooseList3.length);
         sortList.push(chooseList3[rdm]);
