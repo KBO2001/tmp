@@ -477,6 +477,7 @@ let now;
 let play;
 
 window.onload = load();
+window.onload = numbering();
 
 function load() {
     now = 0;
@@ -542,7 +543,6 @@ function load() {
         return;
     }
     console.log(`onload`);
-    numbering();
     console.log(`wordList length: ${wordList.length}`);
 };
 
