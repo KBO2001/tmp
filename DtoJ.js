@@ -542,7 +542,16 @@ function load() {
         return;
     }
     console.log(`onload`);
+    numbering();
     console.log(`wordList length: ${wordList.length}`);
+};
+
+function numbering() {
+    for (let i = 0; i < wordList.length; i++) {
+        wordList[i].push(wordList[i][0]);
+        wordList[i][0] = i + 1;
+    }
+    console.log(wordList);
 };
 
 toTop.onclick = function () {
@@ -702,7 +711,7 @@ function appear() {
     } else {
         console.log(`now is ${now}.`)
         play = 1;
-        Qcard1.innerHTML = `No: ${sortList[now][0]}  Last: ${sortList.length - now}`;
+        Qcard1.innerHTML = `No: ${sortList[now][9]}  Last: ${sortList.length - now}`;
         Qcard2.innerHTML = sortList[now][1];
         Acard1.innerHTML = `<br>`;
         Acard2.innerHTML = null;
