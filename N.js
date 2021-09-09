@@ -214,6 +214,7 @@ let now;
 let play;
 
 window.onload = load();
+window.onload - numbering();
 
 function load() {
     now = 0;
@@ -280,6 +281,14 @@ function load() {
         }
     console.log(`onload`);
     console.log(`wordList length: ${wordList.length}`);
+};
+
+function numbering() {
+    for (let i = 0; i < wordList.length; i++) {
+        wordList[i].push(wordList[i][0]);
+        wordList[i][0] = i + 1;
+    }
+    console.log(wordList);
 };
 
 toTop.onclick = function () {
