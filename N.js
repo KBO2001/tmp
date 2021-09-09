@@ -448,7 +448,7 @@ function appear() {
     } else {
         console.log(`now is ${now}.`)
         play = 1;
-        Qcard1.innerHTML = `No: ${sortList[now][0]}  Last: ${sortList.length - now}`;
+        Qcard1.innerHTML = `No: ${sortList[now][9]}  Last: ${sortList.length - now}`;
         Qcard2.innerHTML = sortList[now][1];
         AcardSP.innerHTML = `<br>`;
         Acard2.innerHTML = null;
