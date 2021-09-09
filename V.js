@@ -2,7 +2,7 @@
 
 //[0No(1~), 1Word, 2Mean, 3Part, 4Change, 5Note, 6Lv, 7State, 8Sort]
 let wordList = [
-    [1, "焼く", "不定形　　：<b>backen</b><br>過去基本形：<b>backte</b><br>接続法２式：backte<br>過去分詞　：<b>gebacken</b>", , ,"", 1, null, null],
+[1, "焼く", "不定形　　：<b>backen</b><br>過去基本形：<b>backte</b><br>接続法２式：backte<br>過去分詞　：<b>gebacken</b>", , ,"", 1, null, null],
 [2, "命じる", "不定形　　：<b>befehlen</b><br>直接法現在：befiehlt<br>過去基本形：<b>befahl</b><br>接続法２式：beföhle / befähle<br>過去分詞　：<b>befohlen</b>", , ,"0, null, null],
 [3, "始める", "不定形　　：<b>beginnen</b><br>過去基本形：<b>begann</b><br>接続法２式：begänne / begönne<br>過去分詞　：<b>begonnen</b>", , ,"", 0, null, null],
 [4, "かむ", "不定形　　：<b>beißen</b><br>過去基本形：<b>biss</b><br>接続法２式：bisse<br>過去分詞　：<b>gebissen</b>", , ,"", 1, null, null],
@@ -191,7 +191,7 @@ let wordList = [
 [187, "絞る", "不定形　　：<b>wringen</b><br>過去基本形：<b>wrang</b><br>接続法２式：wränge<br>過去分詞　：<b>gewrungen</b>", , ,"", 1, null, null],
 [188, "責める", "不定形　　：<b>zeihen</b><br>過去基本形：<b>zieh</b><br>接続法２式：ziehe<br>過去分詞　：<b>geziehen</b>", , ,"", 1, null, null],
 [189, "引く", "不定形　　：<b>ziehen</b><br>過去基本形：<b>zog</b><br>接続法２式：zöge<br>過去分詞　：<b>gezogen</b>", , ,"", 0, null, null],
-[190, "強いる", "不定形　　：<b>zwingen</b><br>過去基本形：<b>zwang</b><br>接続法２式：zwänge<br>過去分詞　：<b>gezwungen</b>", , ,"", 0, null, null],
+[190, "強いる", "不定形　　：<b>zwingen</b><br>過去基本形：<b>zwang</b><br>接続法２式：zwänge<br>過去分詞　：<b>gezwungen</b>", , ,"", 0, null, null]
 ];
 
 let chooseList1 = [];
@@ -227,6 +227,7 @@ let now;
 let play;
 
 window.onload = load();
+window.onload = numbering();
 
 function load() {
     now = 0;
@@ -293,6 +294,14 @@ function load() {
     }
     console.log(`onload`);
     console.log(`wordList length: ${wordList.length}`);
+};
+
+function numbering() {
+    for (let i = 0; i < wordList.length; i++) {
+        wordList[i].push(wordList[i][0]);
+        wordList[i][0] = i + 1;
+    }
+    console.log(wordList);
 };
 
 toTop.onclick = function () {
@@ -452,7 +461,7 @@ function appear() {
     } else {
         console.log(`now is ${now}.`)
         play = 1;
-        Qcard1.innerHTML = `No: ${sortList[now][0]}  Last: ${sortList.length - now}`;
+        Qcard1.innerHTML = `No: ${sortList[now][9]}  Last: ${sortList.length - now}`;
         Qcard2.innerHTML = sortList[now][1];
         AcardSP.innerHTML = `<br>`;
         Acard2.innerHTML = null;
